@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="translator-container">
+      <h2>PDF Translator</h2>
+      <form id="translator-form">
+        <input type="file" id="pdfFile" accept=".pdf" />
+        <label for="targetLanguage">Select Target Language:</label>
+        <select id="targetLanguage">
+          <option value="en">English</option>
+          <option value="es">Spanish</option>
+          <option value="fr">French</option>
+        </select>
+        <button type="button" onclick="processPDF()">Process PDF</button>
+      </form>
+  
+      <div id="translationResult">
+        <!-- Display translation results here -->
+      </div>
+    </div>
+    <!-- HTML file -->
+
+    <div id="output"></div>
+    <script src="script2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    // Fetch data from the server
+    fetch('http://localhost:8000/server.py')
+        .then(response => response.json())
+        .then(data => {
+            // Render the fetched data in the browser
+            renderData(data);
+        })
+
+    // Function to render data
+    function renderData(data) {
+        // Assuming the "output" div is where you want to display the data
+        const outputDiv = document.getElementById('output');
+
+        // Create HTML content based on the fetched data
+        const htmlContent = `<p>Data Key: ${data.key}</p><p>Data Value: ${data.another_key}</p>`;
+
+        // Set the HTML content of the output div
+        outputDiv.innerHTML = htmlContent;
+    }
+});
+    </script>
+
+
+  </body>
+</html>
